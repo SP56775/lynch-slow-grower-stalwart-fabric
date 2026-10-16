@@ -67,7 +67,7 @@ flowchart TD
     E --> G[NB04b<br/>Stalwart screen]
     F --> H[NB05<br/>Paper portfolio]
     G --> H
-    D --> I[NB09<br/>Quarterly and annual backtest]
+    D --> I[NB06<br/>Quarterly and annual backtest]
     F --> J[Power BI Direct Lake]
     G --> J
     H --> J
@@ -163,7 +163,7 @@ There is no combined candidate table in the current design. NB05 reads the two s
 | `NB04a_Slow_Growers` | Dividend-first Slow Grower screen | Silver features, slow-grower config | Slow Grower Gold tables |
 | `NB04b_Stalwarts` | Growth-plus-valuation Stalwart screen | Silver features, stalwart config | Stalwart Gold tables |
 | `NB05_Paper_Portfolio` | Simulates buys, tracks holdings, marks to market and accrues dividends | Split candidate tables, prices, dividends | Paper portfolio Gold tables |
-| `NB09_Quarterly_Backtest_v2` | Backtests both styles separately on quarterly and annual screens | Bronze prices, dividends and fundamentals | Backtest tables |
+| `NB06_Quarterly_Backtest_v2` | Backtests both styles separately on quarterly and annual screens | Bronze prices, dividends and fundamentals | Backtest tables |
 
 Recurring order:
 
@@ -171,7 +171,7 @@ Recurring order:
 NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05
 ```
 
-NB09 is run on demand for historical analysis. It is not part of the recurring paper-portfolio flow.
+NB06 is run on demand for historical analysis. It is not part of the recurring paper-portfolio flow.
 
 ---
 
@@ -280,7 +280,7 @@ The paper portfolio is a simulation only. It does not model real order execution
 
 ## Backtesting Design
 
-NB09 backtests Slow Growers and Stalwarts **separately**, because their entry logic and success measures are different.
+NB06 backtests Slow Growers and Stalwarts **separately**, because their entry logic and success measures are different.
 
 ### Slow Grower backtest focus
 
@@ -375,7 +375,7 @@ lynch-slow-grower-stalwart-fabric/
 │   ├── NB04a_Slow_Growers.ipynb
 │   ├── NB04b_Stalwarts.ipynb
 │   ├── NB05_Paper_Portfolio.ipynb
-│   └── NB09_Quarterly_Backtest_v2.ipynb
+│   └── NB06_Quarterly_Backtest_v2.ipynb
 ├── config/
 │   ├── lynch_parameters.csv
 │   ├── slow_grower_parameters.csv
@@ -410,7 +410,7 @@ Only include screenshots and exported notebooks that actually exist in the repos
    NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05
    ```
 
-6. Run `NB09_Quarterly_Backtest_v2` separately when historical analysis is needed.
+6. Run `NB06_Quarterly_Backtest_v2` separately when historical analysis is needed.
 7. Create the Power BI semantic model using Direct Lake on OneLake.
 
 > Do not use inline `%pip install` inside pipeline notebooks. Install libraries through the Fabric Environment.
