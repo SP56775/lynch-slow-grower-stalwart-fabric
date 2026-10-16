@@ -165,13 +165,13 @@ There is no combined candidate table in the current design. NB05 reads the two s
 | `NB05_Paper_Portfolio` | Simulates buys, tracks holdings, marks to market and accrues dividends | Split candidate tables, prices, dividends | Paper portfolio Gold tables |
 | `NB06_Quarterly_Backtest_v2` | Backtests both styles separately on quarterly and annual screens | Bronze prices, dividends and fundamentals | Backtest tables |
 
-Recurring order:
+Pipeline order:
 
 ```text
-NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05
+NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05 -> NB06
 ```
 
-NB06 is run on demand for historical analysis. It is not part of the recurring paper-portfolio flow.
+NB06 runs last in the pipeline, after the paper portfolio step. The paper portfolio does not depend on it. It only feeds the Backtest Comparison page in Power BI.
 
 ---
 
@@ -407,11 +407,10 @@ Only include screenshots and exported notebooks that actually exist in the repos
 5. Run notebooks in this order:
 
    ```text
-   NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05
+   NB01 -> NB02 -> NB03 -> NB04a -> NB04b -> NB05 -> NB06
    ```
 
-6. Run `NB06_Quarterly_Backtest_v2` separately when historical analysis is needed.
-7. Create the Power BI semantic model using Direct Lake on OneLake.
+6. Create the Power BI semantic model using Direct Lake on OneLake.
 
 > Do not use inline `%pip install` inside pipeline notebooks. Install libraries through the Fabric Environment.
 
@@ -463,7 +462,7 @@ SELECT COUNT(*) AS stalwart_candidates FROM gold_stalwart_candidates;
 **Paper cash reconciliation**
 
 ```sql
-SELECT cash_balance FROM gold_lynch_portfolio;
+SELECT cash_balance FROM gold_lynch_cash;
 
 SELECT COALESCE(SUM(market_value), 0) AS invested
 FROM gold_lynch_portfolio
