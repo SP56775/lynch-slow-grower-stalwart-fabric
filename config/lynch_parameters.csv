@@ -1,0 +1,27 @@
+parameter,value,description
+initial_capital_lakh,10,Starting paper capital in Rs lakh
+max_per_stock_pct,5,Max position size as percent of account
+price_history_start,2005-01-01,Start date for available Yahoo price history
+refresh_overlap_days,10,Re-download recent days to capture corrections
+min_market_cap_cr,2000,Minimum market cap in Rs crore
+slow_eps_cagr_min,0.00,Slow grower EPS CAGR lower bound
+slow_eps_cagr_max,0.12,Slow grower EPS CAGR upper bound
+stalwart_eps_cagr_min,0.08,Stalwart EPS CAGR lower bound
+stalwart_eps_cagr_max,0.16,Stalwart EPS CAGR upper bound
+history_years_fundamental,4,Annual statements available from Yahoo
+min_profitable_years,4,Profitable years out of last 4
+eps_cagr_years,3,EPS CAGR window from 4 annual EPS values
+roe_min_years,4,ROE must pass in each of last N years
+dividend_history_years,7,Years of dividend history used
+yield_history_years,7,Years used for own median yield
+pe_history_years,4,Years used for own median P/E
+min_roe_5y_nonfin,0.12,Minimum ROE each year non-financials
+min_roe_5y_utility,0.10,Minimum ROE each year utilities
+max_de_nonfin,0.5,Max debt-to-equity non-financials
+max_de_utility,2.0,Max debt-to-equity utilities
+min_int_cov_nonfin,5.0,Min interest coverage non-financials
+min_int_cov_utility,3.0,Min interest coverage utilities
+min_ocf_to_ni_5y,0.8,Min cumulative OCF / net income
+min_div_yield_floor,0.01,Absolute dividend yield floor
+min_dividend_years,3,Consecutive dividend years required
+benchmark_symbol,^NSEI,Nifty 50 benchmark on Yahoo

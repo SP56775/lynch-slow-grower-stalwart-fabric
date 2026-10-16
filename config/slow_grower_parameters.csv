@@ -1,0 +1,15 @@
+parameter,value,description
+min_market_cap_cr,2000,Minimum for liquidity
+min_dividend_yield,0.03,Minimum 3% yield (PRIMARY)
+min_dividend_years,5,Minimum 5 years of dividends
+dividend_no_cut_required,true,No cut in last 5 years
+max_payout_ratio,0.80,Max 80% of FCF
+min_ocf_to_ni,0.80,Cash flow supports earnings
+max_debt_to_equity,0.75,Conservative debt
+min_interest_coverage,4.0,Can service debt
+min_roe_5y,0.10,Minimum 10% ROE
+eps_cagr_min,0.00,No minimum growth (allow mature)
+eps_cagr_max,0.12,Exclude if >12% (becomes stalwart/fast grower)
+max_pe_acceptable,50.0,Hard cap on P/E (avoid value traps)
+target_slow_grower_count,30,Target 30 dividend stocks
+max_per_industry,5,Max 5 per sector
