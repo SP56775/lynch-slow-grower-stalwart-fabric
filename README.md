@@ -145,11 +145,11 @@ There is no combined candidate table in the current design. NB05 reads the two s
 
 | Table | Contents | Written by |
 |---|---|---|
-| `backtest_qtr_trades` | Simulated trades from quarterly and annual screens | NB09 |
-| `backtest_qtr_screens` | Screen date, screen type, universe size and pick counts | NB09 |
-| `backtest_qtr_summary` | Summary by style and screen type | NB09 |
-| `backtest_style_summary` | Overall style summary | NB09 |
-| `backtest_screen_type_comparison` | Quarterly vs. annual comparison by style | NB09 |
+| `backtest_qtr_trades` | Simulated trades from quarterly and annual screens | NB06 |
+| `backtest_qtr_screens` | Screen date, screen type, universe size and pick counts | NB06 |
+| `backtest_qtr_summary` | Summary by style and screen type | NB06 |
+| `backtest_style_summary` | Overall style summary | NB06 |
+| `backtest_screen_type_comparison` | Quarterly vs. annual comparison by style | NB06 |
 
 ---
 
