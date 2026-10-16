@@ -177,7 +177,7 @@ SELECT COUNT(*) AS stalwart_candidates FROM gold_stalwart_candidates;
 ### Validation after NB05
 
 ```sql
-SELECT cash_balance FROM gold_lynch_cash;
+SELECT cash_balance FROM gold_lynch_portfolio;
 
 SELECT COUNT(*) AS holdings
 FROM gold_lynch_portfolio
