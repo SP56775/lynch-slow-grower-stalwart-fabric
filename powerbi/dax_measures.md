@@ -1,25 +1,119 @@
-\## \`dax\_measures.md\`\`\`\`markdown# Power BI: Semantic Model and DAXLakehouse: \`lh\_lynch\_value\`Storage: Direct Lake on OneLake## Tables to include- \`gold\_slow\_grower\_screen\`- \`gold\_slow\_grower\_candidates\`- \`gold\_stalwart\_screen\`- \`gold\_stalwart\_candidates\`- \`gold\_lynch\_portfolio\`- \`gold\_lynch\_cash\`- \`gold\_lynch\_transactions\`- \`silver\_lynch\_features\`- \`bronze\_universe\`- \`bronze\_yahoo\_ingestion\_log\`Do not add the obsolete combined \`gold\_lynch\_candidates\` table.## Relationships| From | To | Cardinality | Direction ||---|---|---|---|| \`gold\_slow\_grower\_candidates\[symbol\]\` | \`silver\_lynch\_features\[symbol\]\` | Many to One | Single || \`gold\_stalwart\_candidates\[symbol\]\` | \`silver\_lynch\_features\[symbol\]\` | Many to One | Single || \`gold\_lynch\_portfolio\[symbol\]\` | \`silver\_lynch\_features\[symbol\]\` | Many to One | Single || \`gold\_lynch\_transactions\[symbol\]\` | \`silver\_lynch\_features\[symbol\]\` | Many to One | Single |## Measures\`\`\`daxSlow BUY Count =CALCULATE ( COUNTROWS ( 'gold\_slow\_grower\_candidates' ))
+# Power BI: Semantic Model and DAX
 
-Slow WATCH Count =CALCULATE ( COUNTROWS ( 'gold\_slow\_grower\_screen' ), 'gold\_slow\_grower\_screen'\[final\_status\] = "SLOW\_GROWER\_WATCH")
+**Lakehouse:** `lh_lynch_value`
+**Storage:** Direct Lake on OneLake
 
-Stalwart BUY Count =CALCULATE ( COUNTROWS ( 'gold\_stalwart\_candidates' ))
+---
 
-Stalwart WATCH Count =CALCULATE ( COUNTROWS ( 'gold\_stalwart\_screen' ), 'gold\_stalwart\_screen'\[final\_status\] = "STALWART\_WATCH")
+## Tables to include
 
-Invested =SUM ( 'gold\_lynch\_portfolio'\[market\_value\] )
+- `gold_slow_grower_screen`
+- `gold_slow_grower_candidates`
+- `gold_stalwart_screen`
+- `gold_stalwart_candidates`
+- `gold_lynch_portfolio`
+- `gold_lynch_cash`
+- `gold_lynch_transactions`
+- `silver_lynch_features`
+- `bronze_universe`
+- `bronze_yahoo_ingestion_log`
 
-Cash Balance =MAX ( 'gold\_lynch\_cash'\[cash\_balance\] )
+Do not add the obsolete combined `gold_lynch_candidates` table.
 
-Total Account =\[Invested\] + \[Cash Balance\]
+---
 
-Holdings Count =COUNTROWS ( 'gold\_lynch\_portfolio' )
+## Relationships
 
-Unrealized PnL =SUM ( 'gold\_lynch\_portfolio'\[unrealized\_pnl\] )
+| From | To | Cardinality | Direction |
+|---|---|---|---|
+| `gold_slow_grower_candidates[symbol]` | `silver_lynch_features[symbol]` | Many to One | Single |
+| `gold_stalwart_candidates[symbol]` | `silver_lynch_features[symbol]` | Many to One | Single |
+| `gold_lynch_portfolio[symbol]` | `silver_lynch_features[symbol]` | Many to One | Single |
+| `gold_lynch_transactions[symbol]` | `silver_lynch_features[symbol]` | Many to One | Single |
 
-Dividends Received =CALCULATE ( SUM ( 'gold\_lynch\_transactions'\[amount\] ), 'gold\_lynch\_transactions'\[transaction\_type\] = "DIVIDEND")
+---
 
-Buys Count =CALCULATE ( COUNTROWS ( 'gold\_lynch\_transactions' ), 'gold\_lynch\_transactions'\[transaction\_type\] = "BUY")
+## Measures
 
-Avg Slow Yield =AVERAGE ( 'gold\_slow\_grower\_candidates'\[ttm\_dividend\_yield\] )
+### Screening counts
 
-Avg Stalwart PEG =AVERAGE ( 'gold\_stalwart\_candidates'\[dividend\_adjusted\_peg\] )
+```dax
+Slow BUY Count =
+CALCULATE ( COUNTROWS ( 'gold_slow_grower_candidates' ) )
+```
+
+```dax
+Slow WATCH Count =
+CALCULATE (
+    COUNTROWS ( 'gold_slow_grower_screen' ),
+    'gold_slow_grower_screen'[final_status] = "SLOW_GROWER_WATCH"
+)
+```
+
+```dax
+Stalwart BUY Count =
+CALCULATE ( COUNTROWS ( 'gold_stalwart_candidates' ) )
+```
+
+```dax
+Stalwart WATCH Count =
+CALCULATE (
+    COUNTROWS ( 'gold_stalwart_screen' ),
+    'gold_stalwart_screen'[final_status] = "STALWART_WATCH"
+)
+```
+
+### Paper portfolio
+
+```dax
+Invested =
+SUM ( 'gold_lynch_portfolio'[market_value] )
+```
+
+```dax
+Cash Balance =
+MAX ( 'gold_lynch_cash'[cash_balance] )
+```
+
+```dax
+Total Account =
+[Invested] + [Cash Balance]
+```
+
+```dax
+Holdings Count =
+COUNTROWS ( 'gold_lynch_portfolio' )
+```
+
+```dax
+Unrealized PnL =
+SUM ( 'gold_lynch_portfolio'[unrealized_pnl] )
+```
+
+```dax
+Dividends Received =
+CALCULATE (
+    SUM ( 'gold_lynch_transactions'[amount] ),
+    'gold_lynch_transactions'[transaction_type] = "DIVIDEND"
+)
+```
+
+```dax
+Buys Count =
+CALCULATE (
+    COUNTROWS ( 'gold_lynch_transactions' ),
+    'gold_lynch_transactions'[transaction_type] = "BUY"
+)
+```
+
+### Candidate averages
+
+```dax
+Avg Slow Yield =
+AVERAGE ( 'gold_slow_grower_candidates'[ttm_dividend_yield] )
+```
+
+```dax
+Avg Stalwart PEG =
+AVERAGE ( 'gold_stalwart_candidates'[dividend_adjusted_peg] )
+```
