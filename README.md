@@ -462,7 +462,7 @@ SELECT COUNT(*) AS stalwart_candidates FROM gold_stalwart_candidates;
 **Paper cash reconciliation**
 
 ```sql
-SELECT cash_balance FROM gold_lynch_cash;
+SELECT cash_balance FROM gold_lynch_portfolio;
 
 SELECT COALESCE(SUM(market_value), 0) AS invested
 FROM gold_lynch_portfolio
